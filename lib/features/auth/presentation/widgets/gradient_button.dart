@@ -2,7 +2,8 @@ import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
-  const GradientButton({super.key});
+  final String buttonText;
+  const GradientButton({super.key,required this.buttonText});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class GradientButton extends StatelessWidget {
             fixedSize: Size(screenWidth, buttonHeight),
             backgroundColor: AppPalette.transparentColor,
             shadowColor: AppPalette.transparentColor),
-        child: const Text(
-          'Sign Up',
-          style: TextStyle(
+        child:  Text(
+          buttonText,
+          style: const TextStyle(
               color: AppPalette.white,
               fontSize: 20,
               fontWeight: FontWeight.bold),

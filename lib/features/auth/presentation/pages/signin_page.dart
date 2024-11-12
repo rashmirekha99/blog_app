@@ -3,23 +3,23 @@ import 'package:blog_app/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_app/features/auth/presentation/widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();
     nameController.dispose();
-    passwordController.dispose();
+
     super.dispose();
   }
 
@@ -36,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Sign Up',
+              'Sign In',
               style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: screenHeight * 0.05),
@@ -50,27 +50,21 @@ class _SignUpPageState extends State<SignUpPage> {
               controller: emailController,
             ),
             SizedBox(height: screenHeight * 0.03),
-            AuthField(
-              hintText: 'password',
-              controller: passwordController,
-              isObscureTExt: true,
-            ),
-            SizedBox(height: screenHeight * 0.03),
             const GradientButton(
-              buttonText: "Sign Up",
+              buttonText: "Sign In",
             ),
             SizedBox(height: screenHeight * 0.03),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/');
+                Navigator.pushNamed(context, '/signup');
               },
               child: RichText(
                 text: TextSpan(
-                    text: "Already have an account? ",
+                    text: "Don't have an account? ",
                     style: Theme.of(context).textTheme.titleMedium,
                     children: [
                       TextSpan(
-                          text: 'Sign in',
+                          text: 'Sign up',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium
