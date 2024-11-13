@@ -50,8 +50,9 @@ class _SignInPageState extends State<SignInPage> {
               controller: emailController,
             ),
             SizedBox(height: screenHeight * 0.03),
-            const GradientButton(
+            GradientButton(
               buttonText: "Sign In",
+              onPress: () {},
             ),
             SizedBox(height: screenHeight * 0.03),
             GestureDetector(

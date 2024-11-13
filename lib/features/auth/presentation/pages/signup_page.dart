@@ -1,7 +1,9 @@
 import 'package:blog_app/core/theme/app_palette.dart';
+import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_app/features/auth/presentation/widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -12,9 +14,9 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   void dispose() {
     emailController.dispose();
@@ -56,8 +58,17 @@ class _SignUpPageState extends State<SignUpPage> {
               isObscureTExt: true,
             ),
             SizedBox(height: screenHeight * 0.03),
-            const GradientButton(
+            GradientButton(
               buttonText: "Sign Up",
+              onPress: () {
+                if (formKey.currentState!.validate()) {
+                  
+                  context.read<AuthBloc>().add(AuthSignUp(
+                      name: nameController.text.trim(),
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim()));
+                }
+              },
             ),
             SizedBox(height: screenHeight * 0.03),
             GestureDetector(
