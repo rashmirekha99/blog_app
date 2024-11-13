@@ -10,4 +10,5 @@ class AppPalette {
   static const Color gradient3 = Color.fromARGB(255, 3, 53, 5);
   static const Color transparentColor = Colors.transparent;
   static const Color white = Colors.white;
+  static const Color errorColor = Colors.red;
 }
