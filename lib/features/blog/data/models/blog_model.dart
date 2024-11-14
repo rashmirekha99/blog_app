@@ -27,11 +27,11 @@ class BlogModel extends Blog {
     return BlogModel(
       id: map['id'] as String,
       updatedAt:map['updated_at']==null?DateTime.now(): DateTime.parse(map['updated_at']),
-      posterId: map['posterId'] as String,
+      posterId: map['poster_id'] as String,
       title: map['title'] as String,
       content: map['content'] as String,
-      topics: List<String>.from(map['topics'] as List<String>),
-      imageUrl: map['imageUrl'] as String,
+      topics: List<String>.from(map['topics'] ??[]),
+      imageUrl: map['image_url'] as String,
     );
   }
   //can update values through this

@@ -62,6 +62,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/signup': (context) => const SignUpPage(),
         '/add_new_blog':(context)=>const AddNewBlog(),
+        '/blog_page':(context)=>const BlogPage(),
       },
     );
   }

@@ -6,6 +6,7 @@ import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/image_picker.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
+import 'package:blog_app/features/blog/presentation/pages/blog_page.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -71,12 +72,15 @@ class _AddNewBlogState extends State<AddNewBlog> {
         listener: (context, state) {
           if (state is BlogFailure) {
             showSnackBar(context, state.messsage);
+          } else if (state is BlogSucess) {
+            Navigator.pushNamed(context, '/blog_page');
           }
         },
         builder: (context, state) {
           if (state is BlogLoading) {
             return const Loader();
           }
+
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(

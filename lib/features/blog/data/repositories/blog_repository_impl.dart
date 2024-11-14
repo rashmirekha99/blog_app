@@ -32,7 +32,7 @@ class BlogRepositoryImpl implements BlogRepository {
           imageUrl: 'image_url');
       final uploadedImage=
       await blogDataSource.uploadBlogImage(image: image, blog: blog);
-      blog.copyWith(imageUrl: uploadedImage);
+     blog= blog.copyWith(imageUrl: uploadedImage);
      final uploadedBlog= await blogDataSource.addBlog(blog);
       return right(uploadedBlog);
     } on ServerException catch (e) {

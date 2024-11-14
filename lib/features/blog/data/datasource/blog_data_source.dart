@@ -21,8 +21,9 @@ class BlogDataSourceImpl implements BlogDataSource {
     try {
       final blogData =
           await supabaseClient.from('blogs').insert(blog.toJson()).select();
-
-      return BlogModel.fromJson(blogData.first);
+      BlogModel res = BlogModel.fromJson(blogData.first);
+      
+      return res;
     } catch (e) {
       throw ServerException(e.toString());
     }

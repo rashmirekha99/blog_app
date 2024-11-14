@@ -17,13 +17,7 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
       (event, emit) => emit(BlogLoading()),
     );
     on<BlogAddEvent>((event, emit) async {
-      print('########');
-      print(event.title);
-      print(event.content);
-      print(event.posterId);
-      print(event.topics);
-      print(event.image);
-      print('########');
+
       final res = await _addBlog(AddBlogParams(
           title: event.title,
           content: event.content,
