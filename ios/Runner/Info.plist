@@ -45,5 +45,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to your photo library to allow you to select photos and videos for Blog posting. Your photos will remain private and are only used within the app for this purpose</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to your camera to enable Blog Posting. The camera is only used within the app, and no images or videos are saved or shared without your consent</string>
 </dict>
 </plist>
