@@ -11,6 +11,12 @@ class BlogField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(hintText: hinText),
       maxLines: null,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return '$hinText is missing';
+        }
+        return null;
+      },
     );
   }
 }
