@@ -1,7 +1,9 @@
+import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
 import 'package:blog_app/core/secrets/supabase_secrets.dart';
 import 'package:blog_app/features/auth/data/datasources/auth_data_source.dart';
 import 'package:blog_app/features/auth/data/respositories/auth%20_repository_impl.dart';
 import 'package:blog_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:blog_app/features/auth/domain/usecases/current_user.dart';
 import 'package:blog_app/features/auth/domain/usecases/user_sign_in.dart';
 import 'package:blog_app/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
@@ -20,15 +22,22 @@ Future<void> initDependencies() async {
 }
 
 void _initAuth() {
+//data source
   serviceLocator.registerFactory<AuthDataSource>(
       () => AuthDataSourceImp(serviceLocator()));
-
+//repositories
   serviceLocator.registerFactory<AuthRepository>(
       () => AuthRespositoryImpl(serviceLocator()));
-
+//usecases
   serviceLocator.registerFactory(() => UserSignUp(serviceLocator()));
   serviceLocator.registerFactory(() => UserSignIn(serviceLocator()));
-
-  serviceLocator.registerLazySingleton(() =>
-      AuthBloc(userSignUp: serviceLocator(), userSignIn: serviceLocator()));
+  serviceLocator.registerFactory(() => CurrentUser(serviceLocator()));
+//core
+  serviceLocator.registerLazySingleton(() => UserCubitCubit());
+//Bloc
+  serviceLocator.registerLazySingleton(() => AuthBloc(
+      userSignUp: serviceLocator(),
+      userSignIn: serviceLocator(),
+      currentUser: serviceLocator(),
+      userCubit: serviceLocator()));
 }
