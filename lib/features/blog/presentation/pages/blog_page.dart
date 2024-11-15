@@ -1,7 +1,7 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
-import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
+import 'package:blog_app/features/blog/presentation/widgets/blog_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,85 +52,7 @@ class _BlogPageState extends State<BlogPage> {
                       ),
                   itemBuilder: (context, index) {
                     final blog = state.blogs[index];
-                    return Container(
-                      // padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppPalette.borderColor),
-                      ),
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(9),
-                                    topRight: Radius.circular(9)),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  height: 200,
-                                  width: double.infinity,
-                                  child: Image.network(
-                                    state.blogs[index].imageUrl,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: AppPalette.textBlackColor
-                                              .withValues(alpha: 0.2),
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Text(
-                                        blog.title,
-                                        style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppPalette.white),
-                                      ),
-                                    ),
-                                  ),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: blog.topics
-                                          .map((topic) => Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Chip(label: Text(topic)),
-                                              ))
-                                          .toList(),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-
-                          //descriptipm
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              blog.content,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                    return BlogCard(blog: blog);
                   });
             }
             return const SizedBox();
