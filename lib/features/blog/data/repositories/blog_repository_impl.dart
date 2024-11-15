@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 class BlogRepositoryImpl implements BlogRepository {
   final BlogDataSource blogDataSource;
   BlogRepositoryImpl(this.blogDataSource);
-  
+
   @override
   Future<Either<Failure, Blog>> uploadBlog({
     required File image,
@@ -30,11 +30,22 @@ class BlogRepositoryImpl implements BlogRepository {
           content: content,
           topics: topics,
           imageUrl: 'image_url');
-      final uploadedImage=
-      await blogDataSource.uploadBlogImage(image: image, blog: blog);
-     blog= blog.copyWith(imageUrl: uploadedImage);
-     final uploadedBlog= await blogDataSource.addBlog(blog);
+      final uploadedImage =
+          await blogDataSource.uploadBlogImage(image: image, blog: blog);
+      blog = blog.copyWith(imageUrl: uploadedImage);
+      final uploadedBlog = await blogDataSource.addBlog(blog);
       return right(uploadedBlog);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Blog>>> getAllBlogs(
+      ) async {
+    try {
+      final blogs = await blogDataSource.getBlogs();
+      return right(blogs);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }

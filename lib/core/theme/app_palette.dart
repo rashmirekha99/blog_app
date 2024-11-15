@@ -11,4 +11,6 @@ class AppPalette {
   static const Color transparentColor = Colors.transparent;
   static const Color white = Colors.white;
   static const Color errorColor = Colors.red;
+  static const Color textBlackColor = Colors.black;
+  
 }

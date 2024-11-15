@@ -1,10 +1,8 @@
 part of 'blog_bloc.dart';
 
-
 sealed class BlogEvent {}
 
-
-class BlogAddEvent extends BlogEvent{
+class BlogAddEvent extends BlogEvent {
   final String title;
   final String content;
   final String posterId;
@@ -17,4 +15,8 @@ class BlogAddEvent extends BlogEvent{
     required this.topics,
     required this.image,
   });
+}
+
+class BlogReadEvent extends BlogEvent {
+ 
 }

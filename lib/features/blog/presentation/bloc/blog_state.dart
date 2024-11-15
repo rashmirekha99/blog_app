@@ -1,13 +1,17 @@
 part of 'blog_bloc.dart';
 
-
 sealed class BlogState {}
 
 final class BlogInitial extends BlogState {}
 
 final class BlogSucess extends BlogState {
-   final Blog blog;
-   BlogSucess(this.blog);
+  final Blog blog;
+  BlogSucess(this.blog);
+}
+
+final class BlogListSucess extends BlogState {
+  final List<Blog> blogs;
+  BlogListSucess(this.blogs);
 }
 
 final class BlogFailure extends BlogState {
@@ -16,5 +20,3 @@ final class BlogFailure extends BlogState {
 }
 
 final class BlogLoading extends BlogState {}
-
-
