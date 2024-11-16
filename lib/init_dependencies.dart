@@ -9,13 +9,16 @@ import 'package:blog_app/features/auth/domain/usecases/user_sign_in.dart';
 import 'package:blog_app/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/blog/data/datasource/blog_data_source.dart';
+import 'package:blog_app/features/blog/data/datasource/blog_local_data_source.dart';
 import 'package:blog_app/features/blog/data/repositories/blog_repository_impl.dart';
 import 'package:blog_app/features/blog/domain/repositories/blog_repository.dart';
 import 'package:blog_app/features/blog/domain/usecases/add_blog.dart';
 import 'package:blog_app/features/blog/domain/usecases/get_blog.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final serviceLocator = GetIt.asNewInstance();
@@ -32,6 +35,8 @@ Future<void> initDependencies() async {
   //core
   serviceLocator.registerFactory<InternetConnectionChecker>(
       () => InternetConnectionCheckerImpl(serviceLocator()));
+  Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;
+  serviceLocator.registerLazySingleton(() => Hive.box(name: 'blogs'));
   serviceLocator.registerLazySingleton(() => UserCubitCubit());
 }
 
@@ -60,9 +65,13 @@ void _initBlog() {
   //datasources
   serviceLocator.registerFactory<BlogDataSource>(
       () => BlogDataSourceImpl(serviceLocator()));
+  serviceLocator.registerFactory<BlogLocalDataSource>(
+      () => BlogLocalDataSourceImp(serviceLocator()));
   //repository
-  serviceLocator.registerFactory<BlogRepository>(
-      () => BlogRepositoryImpl(serviceLocator()));
+  serviceLocator.registerFactory<BlogRepository>(() => BlogRepositoryImpl(
+      blogDataSource: serviceLocator(),
+      blogLocalDataSource: serviceLocator(),
+      internetConnectionChecker: serviceLocator()));
   //usecase
   serviceLocator.registerFactory(() => AddBlog(serviceLocator()));
   serviceLocator.registerFactory(() => GetBlog(serviceLocator()));

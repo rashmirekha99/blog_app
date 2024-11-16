@@ -1,17 +1,26 @@
 import 'dart:io';
-
+import 'package:blog_app/core/network/internet_connection_checker.dart';
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/features/blog/data/datasource/blog_data_source.dart';
+import 'package:blog_app/features/blog/data/datasource/blog_local_data_source.dart';
 import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:blog_app/features/blog/domain/repositories/blog_repository.dart';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
 
 class BlogRepositoryImpl implements BlogRepository {
   final BlogDataSource blogDataSource;
-  BlogRepositoryImpl(this.blogDataSource);
+  final BlogLocalDataSource blogLocalDataSource;
+  final InternetConnectionChecker internetConnectionChecker;
+
+  BlogRepositoryImpl({
+    required this.blogDataSource,
+    required this.blogLocalDataSource,
+    required this.internetConnectionChecker,
+  });
 
   @override
   Future<Either<Failure, Blog>> uploadBlog({
@@ -41,11 +50,16 @@ class BlogRepositoryImpl implements BlogRepository {
   }
 
   @override
-  Future<Either<Failure, List<Blog>>> getAllBlogs(
-      ) async {
+  Future<Either<Failure, List<Blog>>> getAllBlogs() async {
     try {
-      final blogs = await blogDataSource.getBlogs();
-      return right(blogs);
+      if (!await internetConnectionChecker.getInternetConnection()) {
+        final localBlogs = blogLocalDataSource.readBlogsFromLocal();
+        return right(localBlogs);
+      } else {
+        final blogs = await blogDataSource.getBlogs();
+        blogLocalDataSource.saveBlogsInLocal(blog: blogs);
+        return right(blogs);
+      }
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
