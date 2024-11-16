@@ -42,17 +42,6 @@ class BlogCard extends StatelessWidget {
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                     ),
-                    // Image.network(
-                    //   loadingBuilder: (context, child, loadingProgress) {
-                    //     if (loadingProgress == null) {
-                    //       return child;
-                    //     } else {
-                    //       return const Loader();
-                    //     }
-                    //   },
-                    //   blog.imageUrl,
-                    //   fit: BoxFit.fitWidth,
-                    // ),
                   ),
                 ),
                 Column(

@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
+import 'package:blog_app/core/network/internet_connection_checker.dart';
 import 'package:blog_app/core/secrets/supabase_secrets.dart';
 import 'package:blog_app/features/auth/data/datasources/auth_data_source.dart';
 import 'package:blog_app/features/auth/data/respositories/auth%20_repository_impl.dart';
@@ -14,6 +15,7 @@ import 'package:blog_app/features/blog/domain/usecases/add_blog.dart';
 import 'package:blog_app/features/blog/domain/usecases/get_blog.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final serviceLocator = GetIt.asNewInstance();
@@ -26,6 +28,11 @@ Future<void> initDependencies() async {
     anonKey: SupabaseSecrets.supabaseAnonKey,
   );
   serviceLocator.registerLazySingleton(() => supabase.client);
+  serviceLocator.registerFactory(() => InternetConnection());
+  //core
+  serviceLocator.registerFactory<InternetConnectionChecker>(
+      () => InternetConnectionCheckerImpl(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => UserCubitCubit());
 }
 
 void _initAuth() {
@@ -34,13 +41,13 @@ void _initAuth() {
       () => AuthDataSourceImp(serviceLocator()));
 //repositories
   serviceLocator.registerFactory<AuthRepository>(
-      () => AuthRespositoryImpl(serviceLocator()));
+      () => AuthRespositoryImpl(serviceLocator(), serviceLocator()));
 //usecases
   serviceLocator.registerFactory(() => UserSignUp(serviceLocator()));
   serviceLocator.registerFactory(() => UserSignIn(serviceLocator()));
   serviceLocator.registerFactory(() => CurrentUser(serviceLocator()));
 //core
-  serviceLocator.registerLazySingleton(() => UserCubitCubit());
+
 //Bloc
   serviceLocator.registerLazySingleton(() => AuthBloc(
       userSignUp: serviceLocator(),
