@@ -1,6 +1,8 @@
+import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BlogCard extends StatelessWidget {
@@ -33,18 +35,33 @@ class BlogCard extends StatelessWidget {
                     ),
                     height: 200,
                     width: double.infinity,
-                    child: Image.network(
-                      blog.imageUrl,
+                    child: CachedNetworkImage(
                       fit: BoxFit.fitWidth,
+                      imageUrl: blog.imageUrl,
+                      placeholder: (context, url) => const Loader(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
+                    // Image.network(
+                    //   loadingBuilder: (context, child, loadingProgress) {
+                    //     if (loadingProgress == null) {
+                    //       return child;
+                    //     } else {
+                    //       return const Loader();
+                    //     }
+                    //   },
+                    //   blog.imageUrl,
+                    //   fit: BoxFit.fitWidth,
+                    // ),
                   ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(0),
                       child: Container(
+                        width: double.infinity,
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             color: AppPalette.textBlackColor
@@ -52,10 +69,7 @@ class BlogCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5)),
                         child: Text(
                           blog.title,
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: AppPalette.white),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
                     ),
@@ -65,9 +79,8 @@ class BlogCard extends StatelessWidget {
                       child: Row(
                         children: blog.topics
                             .map((topic) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Chip(label: Text(topic)),
-                                ))
+                                padding: const EdgeInsets.all(8.0),
+                                child: Chip(label: Text(topic))))
                             .toList(),
                       ),
                     ),

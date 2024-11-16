@@ -22,6 +22,19 @@ class AppTheme {
           focusedBorder: _border(AppPalette.gradient1)),
       //chip theme
       chipTheme: const ChipThemeData(
-          side: BorderSide.none,
-          color: WidgetStatePropertyAll(AppPalette.backgroundColor)));
+        side: BorderSide.none,
+        color: WidgetStatePropertyAll(AppPalette.backgroundColor),
+      ),
+      //text theme
+      textTheme: const TextTheme(
+        titleLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: AppPalette.white,
+        ),
+        bodySmall: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: AppPalette.textGreyColor,
+        ),
+      ));
 }

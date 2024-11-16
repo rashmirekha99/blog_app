@@ -52,7 +52,15 @@ class _BlogPageState extends State<BlogPage> {
                       ),
                   itemBuilder: (context, index) {
                     final blog = state.blogs[index];
-                    return BlogCard(blog: blog);
+                    return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/single_blog_page',
+                            arguments: blog, 
+                          );
+                        },
+                        child: BlogCard(blog: blog));
                   });
             }
             return const SizedBox();
