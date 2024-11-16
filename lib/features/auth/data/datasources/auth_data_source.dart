@@ -1,3 +1,5 @@
+import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/constant/supabase_constant.dart';
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/features/auth/data/models/user_models.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -34,7 +36,7 @@ class AuthDataSourceImp implements AuthDataSource {
       );
 
       if (response.user == null) {
-        throw ServerException('User is null');
+        throw ServerException(Constant.userNullMessage);
       }
       return UserModels.fromJson(response.user!.toJson());
     } catch (e) {
@@ -54,7 +56,7 @@ class AuthDataSourceImp implements AuthDataSource {
       });
 
       if (response.user == null) {
-        throw ServerException('User is null');
+        throw ServerException(Constant.userNullMessage);
       }
       return UserModels.fromJson(response.user!.toJson());
     } catch (e) {
@@ -63,7 +65,6 @@ class AuthDataSourceImp implements AuthDataSource {
   }
 
   @override
-  // TODO: implement currentUser
   Session? get currentUser => supabaseClient.auth.currentSession;
 
   @override
@@ -71,7 +72,7 @@ class AuthDataSourceImp implements AuthDataSource {
     try {
       if (currentUser != null) {
         final user = await supabaseClient
-            .from('profiles')
+            .from(SupabaseConstant.userTableName)
             .select()
             .eq('id', currentUser!.user.id);
         return UserModels.fromJson(user.first);

@@ -1,3 +1,4 @@
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/network/internet_connection_checker.dart';
@@ -31,7 +32,7 @@ class AuthRespositoryImpl implements AuthRepository {
     try {
       final isConnected = await internetChecker.getInternetConnection();
       if (!isConnected) {
-        return left(Failure('No internet Connection'));
+        return left(Failure(Constant.notHaveInternetConnectionMsg));
       }
       final user = await fun();
       return right(user);

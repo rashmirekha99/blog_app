@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
@@ -75,7 +76,7 @@ class BlogCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('${calculateReadingTime(blog.content)} min'),
+                      child: Text('${calculateReadingTime(blog.content)} ${Constant.minutesText}'),
                     ),
                   ],
                 )

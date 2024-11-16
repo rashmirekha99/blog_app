@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:blog_app/core/constant/supabase_constant.dart';
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -21,7 +22,7 @@ class BlogDataSourceImpl implements BlogDataSource {
   Future<BlogModel> addBlog(BlogModel blog) async {
     try {
       final blogData =
-          await supabaseClient.from('blogs').insert(blog.toJson()).select();
+          await supabaseClient.from(SupabaseConstant.blogTableName).insert(blog.toJson()).select();
       BlogModel res = BlogModel.fromJson(blogData.first);
 
       return res;
@@ -34,9 +35,9 @@ class BlogDataSourceImpl implements BlogDataSource {
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blog}) async {
     try {
-      await supabaseClient.storage.from('blog_images').upload(blog.id, image);
+      await supabaseClient.storage.from(SupabaseConstant.blogStorageName).upload(blog.id, image);
 
-      return supabaseClient.storage.from('blog_images').getPublicUrl(blog.id);
+      return supabaseClient.storage.from(SupabaseConstant.blogStorageName).getPublicUrl(blog.id);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -44,11 +45,8 @@ class BlogDataSourceImpl implements BlogDataSource {
 
   @override
   Future<List<BlogModel>> getBlogs() async {
-    try {
-      // final blogs =
-      //     await supabaseClient.from('blogs').select().eq('poster_id', userId);
-     
-      final blogs = await supabaseClient.from('blogs').select();
+    try {    
+      final blogs = await supabaseClient.from(SupabaseConstant.blogTableName).select();
       final listedBlogs =
           blogs.map((blog) => BlogModel.fromJson(blog)).toList();
 

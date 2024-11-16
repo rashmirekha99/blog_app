@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/signin_page.dart';
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Blog App',
+      title: Constant.appName,
       theme: AppTheme.darkThemeMode,
       home: BlocSelector<UserCubitCubit, UserCubitState, bool>(
         selector: (state) {

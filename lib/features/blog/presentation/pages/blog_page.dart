@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_card.dart';
@@ -25,7 +26,7 @@ class _BlogPageState extends State<BlogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Blog App'),
+          title: const Text(Constant.appName),
           actions: [
             IconButton(
                 onPressed: () {
@@ -57,7 +58,7 @@ class _BlogPageState extends State<BlogPage> {
                           Navigator.pushNamed(
                             context,
                             '/single_blog_page',
-                            arguments: blog, 
+                            arguments: blog,
                           );
                         },
                         child: BlogCard(blog: blog));

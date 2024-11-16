@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -45,7 +46,7 @@ class SingleBlog extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
-                          '    ${calculateReadingTime(blog.content)} min ',
+                          '    ${calculateReadingTime(blog.content)} ${Constant.minutesText} ',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],

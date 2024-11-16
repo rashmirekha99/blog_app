@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
 import 'package:blog_app/core/common/widgets/loader.dart';
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/image_picker.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
@@ -112,7 +112,7 @@ class _AddNewBlogState extends State<AddNewBlog> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    Text('Add Image')
+                                    Text(Constant.blogFormAddImage)
                                   ],
                                 )
                               : Image.file(
@@ -126,32 +126,31 @@ class _AddNewBlogState extends State<AddNewBlog> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children:
-                            ['Technology', 'Entertainment', 'Nature', 'Sports']
-                                .map((e) => Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (selectedTopics.contains(e)) {
-                                            selectedTopics.remove(e);
-                                          } else {
-                                            selectedTopics.add(e);
-                                          }
+                        children: Constant.topics
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (selectedTopics.contains(e)) {
+                                        selectedTopics.remove(e);
+                                      } else {
+                                        selectedTopics.add(e);
+                                      }
 
-                                          setState(() {});
-                                        },
-                                        child: Chip(
-                                          label: Text(e),
-                                          color: selectedTopics.contains(e)
-                                              ? const WidgetStatePropertyAll(
-                                                  AppPalette.gradient2)
-                                              : null,
-                                          side: const BorderSide(
-                                              color: AppPalette.borderColor),
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
+                                      setState(() {});
+                                    },
+                                    child: Chip(
+                                      label: Text(e),
+                                      color: selectedTopics.contains(e)
+                                          ? const WidgetStatePropertyAll(
+                                              AppPalette.gradient2)
+                                          : null,
+                                      side: const BorderSide(
+                                          color: AppPalette.borderColor),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
                       ),
                     ),
                     //fields
@@ -159,12 +158,14 @@ class _AddNewBlogState extends State<AddNewBlog> {
                       height: 10,
                     ),
                     BlogField(
-                        controller: titleController, hinText: 'Blog Title'),
+                        controller: titleController,
+                        hinText: Constant.blogFormFieldTitle),
                     const SizedBox(
                       height: 10,
                     ),
                     BlogField(
-                        controller: contentController, hinText: 'Blog Content')
+                        controller: contentController,
+                        hinText: Constant.blogFormFieldContent)
                   ],
                 ),
               ),
