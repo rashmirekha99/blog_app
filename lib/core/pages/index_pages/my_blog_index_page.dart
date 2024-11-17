@@ -18,7 +18,6 @@ class _MyBlogIndexPageState extends State<MyBlogIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-     
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case RouteNames.initialRouteName:
@@ -31,7 +30,10 @@ class _MyBlogIndexPageState extends State<MyBlogIndexPage> {
               ),
             );
           case RouteNames.addNewBlogRouteName:
-            return MaterialPageRoute(builder: (context) => const AddNewBlog());
+            return MaterialPageRoute(
+                builder: (context) => AddNewBlog(
+                      blog: settings.arguments,
+                    ));
 
           default:
             return MaterialPageRoute(

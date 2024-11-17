@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
 import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/image_picker.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
+import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_field.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -12,8 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewBlog extends StatefulWidget {
-  const AddNewBlog({super.key});
-
+  const AddNewBlog({super.key, this.blog});
+  final dynamic blog;
   @override
   State<AddNewBlog> createState() => _AddNewBlogState();
 }
@@ -34,11 +36,59 @@ class _AddNewBlogState extends State<AddNewBlog> {
       });
     }
   }
+Widget imageOrImageIconDisplay() {
+    if (widget.blog == null) {
+      //imageIconAndText
+      return const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.folder_open,
+            size: 40,
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(Constant.blogFormAddImage)
+        ],
+      );
+    } else {
+      //image from link
+      return Image.network(
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          } else {
+            return const Loader();
+          }
+        },
+        widget.blog.imageUrl,
+        fit: BoxFit.cover,
+      );
+    }
+  }
+
+  
+  //on update request
+  void textFieldValueInitialize(Blog blog) {
+    titleController.text = blog.title;
+    contentController.text = blog.content;
+    selectedTopics = blog.topics;
+  }
+
+  @override
+  void initState() {
+    if (widget.blog != null) {
+      textFieldValueInitialize(widget.blog);
+    }
+    super.initState();
+  }
 
   @override
   void dispose() {
     titleController.dispose();
     contentController.dispose();
+
     super.dispose();
   }
 
@@ -73,7 +123,7 @@ class _AddNewBlogState extends State<AddNewBlog> {
             showSnackBar(context, state.messsage);
           } else if (state is BlogSucess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, '/', (Route<dynamic> route) => false);
+                context,RouteNames.initialRouteName, (Route<dynamic> route) => false);
           }
         },
         builder: (context, state) {
@@ -103,19 +153,7 @@ class _AddNewBlogState extends State<AddNewBlog> {
                           height: 150,
                           width: double.infinity,
                           child: image == null
-                              ? const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.folder_open,
-                                      size: 40,
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(Constant.blogFormAddImage)
-                                  ],
-                                )
+                              ? imageOrImageIconDisplay()
                               : Image.file(
                                   image!,
                                   fit: BoxFit.cover,

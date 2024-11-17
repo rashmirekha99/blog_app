@@ -1,5 +1,6 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,7 +19,15 @@ class SingleBlog extends StatelessWidget {
         actions: [
           Visibility(
               visible: isEditIconRequired,
-              child: IconButton(onPressed: () {}, icon: Icon(Icons.edit)))
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteNames.addNewBlogRouteName,
+                      arguments: blog,
+                    );
+                  },
+                  icon: const Icon(Icons.edit)))
         ],
       ),
       body: Scrollbar(
