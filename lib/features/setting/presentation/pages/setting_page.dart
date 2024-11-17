@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/setting/presentation/widgets/setting_card_item.dart';
@@ -17,7 +18,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Setting'),
+        title: const Text(Constant.navBarSettingText),
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -42,7 +43,7 @@ class _SettingPageState extends State<SettingPage> {
               ),
               SettingCardItem(
                 icon: Icons.logout_outlined,
-                name: 'Log Out',
+                name: Constant.logOutButtonName,
                 onPress: () {
                   context.read<AuthBloc>().add(AuthLogOutUser());
                 },

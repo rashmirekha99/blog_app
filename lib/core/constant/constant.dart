@@ -5,10 +5,9 @@ class Constant {
     'Nature',
     'Sports'
   ];
-
+  //network
   static const String notHaveInternetConnectionMsg = 'Not internet Connection';
-
-  static const String userNullMessage = 'User is null';
+  //blogs
   static const String blogFormFieldTitle = 'Blog Title';
   static const String blogFormFieldContent = 'Blog Content';
   static const String blogFormAddImage = 'Add Image';
@@ -19,5 +18,7 @@ class Constant {
   static const String navBarMyBlogText = 'My Blogs';
   static const String navBarSettingText = 'Setting';
   //auth
-  static const String loggedOutText = 'Sucessfully Logged Out'; 
+  static const String loggedOutText = 'Sucessfully Logged Out';
+  static const String logOutButtonName = 'Log Out';
+  static const String userNullMessage = 'User is null';
 }

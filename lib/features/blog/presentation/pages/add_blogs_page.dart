@@ -72,7 +72,8 @@ class _AddNewBlogState extends State<AddNewBlog> {
           if (state is BlogFailure) {
             showSnackBar(context, state.messsage);
           } else if (state is BlogSucess) {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/', (Route<dynamic> route) => false);
           }
         },
         builder: (context, state) {
