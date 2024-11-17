@@ -39,11 +39,16 @@ class _SignInPageState extends State<SignInPage> {
           if (state is AuthFailure) {
             showSnackBar(context, state.messsage);
           }
+          if (state is AuthSucess) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/', (Route<dynamic> route) => false);
+          }
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            return Loader();
+            return const Loader();
           }
+
           return Form(
             key: formKey,
             child: Column(

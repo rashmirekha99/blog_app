@@ -62,8 +62,12 @@ class _MyAppState extends State<MyApp> {
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => const HomePage());
           case '/signup':
             return MaterialPageRoute(builder: (context) => const SignUpPage());
+          case '/sign_in':
+            return MaterialPageRoute(builder: (context) => const SignInPage());
           default:
             return MaterialPageRoute(
                 builder: (context) => const NotFoundPage());

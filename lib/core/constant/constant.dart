@@ -18,4 +18,6 @@ class Constant {
   static const String navBarHomeText = 'Home';
   static const String navBarMyBlogText = 'My Blogs';
   static const String navBarSettingText = 'Setting';
+  //auth
+  static const String loggedOutText = 'Sucessfully Logged Out'; 
 }

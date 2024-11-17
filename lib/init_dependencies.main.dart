@@ -30,14 +30,19 @@ void _initAuth() {
   serviceLocator.registerFactory(() => UserSignUp(serviceLocator()));
   serviceLocator.registerFactory(() => UserSignIn(serviceLocator()));
   serviceLocator.registerFactory(() => CurrentUser(serviceLocator()));
+  serviceLocator.registerFactory(() => UserLogOut(serviceLocator()));
 //core
 
 //Bloc
-  serviceLocator.registerLazySingleton(() => AuthBloc(
+  serviceLocator.registerLazySingleton(
+    () => AuthBloc(
       userSignUp: serviceLocator(),
       userSignIn: serviceLocator(),
       currentUser: serviceLocator(),
-      userCubit: serviceLocator()));
+      userCubit: serviceLocator(),
+      userLogOut: serviceLocator(),
+    ),
+  );
 }
 
 void _initBlog() {

@@ -18,6 +18,7 @@ abstract interface class AuthDataSource {
   });
 
   Future<UserModels?> getCurrentUser();
+  Future<void> logOutCurrentUser();
 }
 
 class AuthDataSourceImp implements AuthDataSource {
@@ -83,6 +84,17 @@ class AuthDataSourceImp implements AuthDataSource {
       }
       return null;
     } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> logOutCurrentUser() async {
+    try {
+      await supabaseClient.auth.signOut(scope: SignOutScope.global);
+    } on AuthException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());

@@ -1,6 +1,9 @@
-import 'package:blog_app/core/theme/app_palette.dart';
+import 'package:blog_app/core/common/widgets/loader.dart';
+import 'package:blog_app/core/utils/show_snack_bar.dart';
+import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/setting/presentation/widgets/setting_card_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -16,20 +19,37 @@ class _SettingPageState extends State<SettingPage> {
       appBar: AppBar(
         title: const Text('Setting'),
       ),
-      body: Column(
-        spacing: 20,
-        children: [
-          SettingCardItem(
-            icon: Icons.color_lens,
-            name: 'Theme',
-            onPress: () {},
-          ),
-          SettingCardItem(
-            icon: Icons.logout_outlined,
-            name: 'Log Out',
-            onPress: () {},
-          ),
-        ],
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthFailure) {
+            showSnackBar(context, state.messsage);
+          } else if (state is AuthLogOutSucess) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/sign_in', (Route<dynamic> route) => false);
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return const Loader();
+          }
+          return Column(
+            spacing: 20,
+            children: [
+              SettingCardItem(
+                icon: Icons.color_lens,
+                name: 'Theme',
+                onPress: () {},
+              ),
+              SettingCardItem(
+                icon: Icons.logout_outlined,
+                name: 'Log Out',
+                onPress: () {
+                  context.read<AuthBloc>().add(AuthLogOutUser());
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/common/entities/user.dart';
 import 'package:fpdart/fpdart.dart';
@@ -14,5 +16,8 @@ abstract interface class AuthRepository {
     required String email,
     required String password,
   });
+  //getCurrentUser
   Future<Either<Failure, User>> currentUser();
+  //log out user
+  Future<Either<Failure, bool>> logOut();
 }

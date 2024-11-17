@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/core/error/failures.dart';
@@ -36,9 +38,7 @@ class AuthRespositoryImpl implements AuthRepository {
       }
       final user = await fun();
       return right(user);
-    } 
-    
-    on ServerException catch (e) {
+    } on ServerException catch (e) {
       return left(Failure(e.message));
     }
   }
@@ -67,6 +67,19 @@ class AuthRespositoryImpl implements AuthRepository {
         return left(Failure('User Not Logged In'));
       }
       return right(user);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> logOut() async {
+    try {
+      if (!await internetChecker.getInternetConnection()) {
+        return left(Failure(Constant.notHaveInternetConnectionMsg));
+      }
+      await authDataSource.logOutCurrentUser();
+      return right(true);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
