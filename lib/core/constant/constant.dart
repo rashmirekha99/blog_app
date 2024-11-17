@@ -14,4 +14,8 @@ class Constant {
   static const String blogFormAddImage = 'Add Image';
   static const String appName = 'Blog App';
   static const String minutesText = 'min';
+  //bottom bar
+  static const String navBarHomeText = 'Home';
+  static const String navBarMyBlogText = 'My Blogs';
+  static const String navBarSettingText = 'Setting';
 }

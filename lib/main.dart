@@ -1,14 +1,12 @@
 import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
 import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/pages/not_found_page.dart';
 import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/signin_page.dart';
 import 'package:blog_app/features/auth/presentation/pages/signup_page.dart';
-import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
-import 'package:blog_app/features/blog/presentation/pages/add_blogs_page.dart';
-import 'package:blog_app/features/blog/presentation/pages/blog_page.dart';
-import 'package:blog_app/features/blog/presentation/pages/single_blog_page.dart';
+import 'package:blog_app/home_page.dart';
 import 'package:blog_app/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,7 +55,7 @@ class _MyAppState extends State<MyApp> {
         //if true run this builder
         builder: (context, state) {
           if (state) {
-            return const BlogPage();
+            return const HomePage();
           }
           return const SignInPage();
         },
@@ -66,20 +64,11 @@ class _MyAppState extends State<MyApp> {
         switch (settings.name) {
           case '/signup':
             return MaterialPageRoute(builder: (context) => const SignUpPage());
-          case '/add_new_blog':
-            return MaterialPageRoute(builder: (context) => const AddNewBlog());
-          case '/blog_page':
-            return MaterialPageRoute(builder: (context) => const BlogPage());
-          case '/single_blog_page':
-            return MaterialPageRoute(
-                builder: (context) => SingleBlog(
-                      blog: settings.arguments as Blog,
-                    ));
           default:
-            return MaterialPageRoute(builder: (context) => const SignUpPage());
+            return MaterialPageRoute(
+                builder: (context) => const NotFoundPage());
         }
       },
-     
     );
   }
 }

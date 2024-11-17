@@ -36,5 +36,8 @@ class AppTheme {
           fontWeight: FontWeight.bold,
           color: AppPalette.textGreyColor,
         ),
-      ));
+      ),
+      //navbar
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: AppPalette.gradient1));
 }
