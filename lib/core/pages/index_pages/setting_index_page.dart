@@ -1,5 +1,5 @@
 import 'package:blog_app/core/pages/not_found_page.dart';
-import 'package:blog_app/features/setting/presentation/setting_page.dart';
+import 'package:blog_app/features/setting/presentation/pages/setting_page.dart';
 import 'package:flutter/material.dart';
 
 class SettingIndexPage extends StatefulWidget {

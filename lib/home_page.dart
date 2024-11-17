@@ -1,6 +1,6 @@
 import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/features/blog/presentation/pages/my_blog_page.dart';
-import 'package:blog_app/features/setting/presentation/setting_page.dart';
+import 'package:blog_app/features/setting/presentation/pages/setting_page.dart';
 import 'package:blog_app/core/pages/index_pages/home_index_page.dart';
 import 'package:flutter/material.dart';
 
