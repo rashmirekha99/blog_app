@@ -6,13 +6,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SingleBlog extends StatelessWidget {
-  const SingleBlog({super.key, required this.blog});
+  const SingleBlog(
+      {super.key, required this.blog, this.isEditIconRequired = false});
   final Blog blog;
+  final bool isEditIconRequired;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          Visibility(
+              visible: isEditIconRequired,
+              child: IconButton(onPressed: () {}, icon: Icon(Icons.edit)))
+        ],
+      ),
       body: Scrollbar(
         child: SingleChildScrollView(
           child: Column(

@@ -1,3 +1,4 @@
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/pages/not_found_page.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:blog_app/features/blog/presentation/pages/add_blogs_page.dart';
@@ -17,15 +18,13 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case '/':
+          case RouteNames.initialRouteName:
             return MaterialPageRoute(builder: (context) => const BlogPage());
-          case '/add_new_blog':
+          case RouteNames.addNewBlogRouteName:
             return MaterialPageRoute(builder: (context) => const AddNewBlog());
-
-          case '/single_blog_page':
+          case RouteNames.singleBlogRouteName:
             return MaterialPageRoute(
               builder: (context) => SingleBlog(
                 blog: settings.arguments as Blog,

@@ -1,3 +1,4 @@
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/pages/not_found_page.dart';
 import 'package:blog_app/features/setting/presentation/pages/setting_page.dart';
 
@@ -17,7 +18,7 @@ class _SettingIndexPageState extends State<SettingIndexPage> {
       
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case '/':
+          case RouteNames.initialRouteName:
             return MaterialPageRoute(builder: (context) => const SettingPage());
           default:
             return MaterialPageRoute(

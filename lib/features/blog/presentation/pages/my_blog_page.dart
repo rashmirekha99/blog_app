@@ -63,7 +63,6 @@ class _MyBlogPageState extends State<MyBlogPage> {
                                 '/single_blog_page',
                                 arguments: blog,
                               );
-                              
                             },
                             child: BlogCard(blog: blog)),
                       );

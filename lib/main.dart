@@ -1,5 +1,6 @@
 import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
 import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/pages/not_found_page.dart';
 import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
@@ -49,7 +50,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: Constant.appName,
       theme: AppTheme.darkThemeMode,
-      // navigatorKey: NavigationKeys.globalNavigationKey,
       home: BlocSelector<UserCubitCubit, UserCubitState, bool>(
         selector: (state) {
           return state is AppUserState;
@@ -64,11 +64,11 @@ class _MyAppState extends State<MyApp> {
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case '/':
+          case RouteNames.initialRouteName:
             return MaterialPageRoute(builder: (context) => const HomePage());
-          case '/signup':
+          case RouteNames.signUpRouteName:
             return MaterialPageRoute(builder: (context) => const SignUpPage());
-          case '/sign_in':
+          case RouteNames.signInRouteName:
             return MaterialPageRoute(builder: (context) => const SignInPage());
           default:
             return MaterialPageRoute(
