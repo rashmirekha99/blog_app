@@ -1,7 +1,7 @@
 import 'package:blog_app/core/constant/constant.dart';
-import 'package:blog_app/features/blog/presentation/pages/my_blog_page.dart';
-import 'package:blog_app/features/setting/presentation/pages/setting_page.dart';
 import 'package:blog_app/core/pages/index_pages/home_index_page.dart';
+import 'package:blog_app/core/pages/index_pages/my_blog_index_page.dart';
+import 'package:blog_app/core/pages/index_pages/setting_index_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,12 +20,12 @@ class _HomePageState extends State<HomePage> {
         index: _currentIndex,
         children: const [
           HomeIndexPage(),
-          MyBlogPage(),
-          SettingPage(),
+          MyBlogIndexPage(),
+          SettingIndexPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        
+         
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {

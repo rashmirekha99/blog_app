@@ -3,6 +3,7 @@ import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:blog_app/features/blog/presentation/pages/add_blogs_page.dart';
 import 'package:blog_app/features/blog/presentation/pages/blog_page.dart';
 import 'package:blog_app/features/blog/presentation/pages/single_blog_page.dart';
+
 import 'package:flutter/material.dart';
 
 class HomeIndexPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
+
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/':

@@ -25,6 +25,7 @@ class _SettingPageState extends State<SettingPage> {
           if (state is AuthFailure) {
             showSnackBar(context, state.messsage);
           } else if (state is AuthLogOutSucess) {
+            showSnackBar(context, Constant.loggedOutText);
             Navigator.pushNamedAndRemoveUntil(
                 context, '/sign_in', (Route<dynamic> route) => false);
           }
