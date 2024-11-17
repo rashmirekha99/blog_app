@@ -1,7 +1,7 @@
 import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/pages/not_found_page.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
-import 'package:blog_app/features/blog/presentation/pages/add_blogs_page.dart';
+import 'package:blog_app/features/blog/presentation/pages/blog_form_page.dart';
 import 'package:blog_app/features/blog/presentation/pages/blog_page.dart';
 import 'package:blog_app/features/blog/presentation/pages/single_blog_page.dart';
 

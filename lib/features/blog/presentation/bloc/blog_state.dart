@@ -9,6 +9,13 @@ final class BlogSucess extends BlogState {
   BlogSucess(this.blog);
 }
 
+final class BlogUpdateSucess extends BlogState {
+  final String message;
+
+  BlogUpdateSucess({required this.message});
+
+}
+
 final class BlogListSucess extends BlogState {
   final List<Blog> blogs;
   BlogListSucess(this.blogs);

@@ -59,7 +59,10 @@ void _initBlog() {
   //usecase
   serviceLocator.registerFactory(() => AddBlog(serviceLocator()));
   serviceLocator.registerFactory(() => GetBlog(serviceLocator()));
+  serviceLocator.registerFactory(() => UpdateBlog(serviceLocator()));
   //Bloc
-  serviceLocator.registerLazySingleton(
-      () => BlogBloc(addBlog: serviceLocator(), getBlog: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => BlogBloc(
+      addBlog: serviceLocator(),
+      getBlog: serviceLocator(),
+      updateBlog: serviceLocator()));
 }

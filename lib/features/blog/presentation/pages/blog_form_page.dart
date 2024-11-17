@@ -61,6 +61,37 @@ class _AddNewBlogState extends State<AddNewBlog> {
     super.dispose();
   }
 
+  void addBlog(BuildContext context) {
+    if (formKey.currentState!.validate() &&
+        selectedTopics.isNotEmpty &&
+        image != null) {
+      final userId =
+          (context.read<UserCubitCubit>().state as AppUserState).user.id;
+      context.read<BlogBloc>().add(BlogAddEvent(
+          title: titleController.text,
+          content: contentController.text,
+          posterId: userId,
+          topics: selectedTopics,
+          image: image!));
+    }
+  }
+
+  void updateBlog(BuildContext context) {
+    if (formKey.currentState!.validate() && selectedTopics.isNotEmpty) {
+      Blog blogData = widget.blog as Blog;
+      
+      context.read<BlogBloc>().add(BlogUpdateEvent(
+          image: image,
+          id: blogData.id,
+          updatedAt: blogData.updatedAt,
+          title: titleController.text,
+          content: contentController.text,
+          posterId: blogData.posterId,
+          imageUrl: blogData.imageUrl,
+          topics: selectedTopics));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,19 +99,10 @@ class _AddNewBlogState extends State<AddNewBlog> {
         actions: [
           IconButton(
               onPressed: () {
-                if (formKey.currentState!.validate() &&
-                    selectedTopics.isNotEmpty &&
-                    image != null) {
-                  final userId =
-                      (context.read<UserCubitCubit>().state as AppUserState)
-                          .user
-                          .id;
-                  context.read<BlogBloc>().add(BlogAddEvent(
-                      title: titleController.text,
-                      content: contentController.text,
-                      posterId: userId,
-                      topics: selectedTopics,
-                      image: image!));
+                if (widget.blog != null) {
+                  updateBlog(context);
+                } else {
+                  addBlog(context);
                 }
               },
               icon: const Icon(Icons.done))
@@ -91,6 +113,10 @@ class _AddNewBlogState extends State<AddNewBlog> {
           if (state is BlogFailure) {
             showSnackBar(context, state.messsage);
           } else if (state is BlogSucess) {
+            Navigator.pushNamedAndRemoveUntil(context,
+                RouteNames.initialRouteName, (Route<dynamic> route) => false);
+          } else if (state is BlogUpdateSucess) {
+            showSnackBar(context, state.message);
             Navigator.pushNamedAndRemoveUntil(context,
                 RouteNames.initialRouteName, (Route<dynamic> route) => false);
           }

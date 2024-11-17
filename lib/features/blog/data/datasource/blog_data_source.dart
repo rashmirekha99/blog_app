@@ -6,11 +6,12 @@ import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class BlogDataSource {
-
   Future<BlogModel> addBlog(BlogModel blog);
+  Future<BlogModel> updateBlog(BlogModel blog);
   Future<String> uploadBlogImage({
     required File image,
     required BlogModel blog,
+    
   });
   Future<List<BlogModel>> getBlogs();
 }
@@ -40,7 +41,6 @@ class BlogDataSourceImpl implements BlogDataSource {
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blog}) async {
     try {
-     
       await supabaseClient.storage
           .from(SupabaseConstant.blogStorageName)
           .upload(blog.id, image);
@@ -64,6 +64,22 @@ class BlogDataSourceImpl implements BlogDataSource {
           blogs.map((blog) => BlogModel.fromJson(blog)).toList();
 
       return listedBlogs;
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<BlogModel> updateBlog(BlogModel blog) async {
+    try {
+      final updatedBlog = await supabaseClient
+          .from(SupabaseConstant.blogTableName)
+          .update(blog.toJson())
+          .eq('id', blog.id)
+          .select();
+      return BlogModel.fromJson(updatedBlog.first);
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {

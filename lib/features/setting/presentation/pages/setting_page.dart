@@ -1,5 +1,6 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/setting/presentation/widgets/setting_card_item.dart';
@@ -27,7 +28,7 @@ class _SettingPageState extends State<SettingPage> {
           } else if (state is AuthLogOutSucess) {
             showSnackBar(context, Constant.loggedOutText);
             Navigator.pushNamedAndRemoveUntil(
-                context, '/sign_in', (Route<dynamic> route) => false);
+                context, RouteNames.signInRouteName, (Route<dynamic> route) => false);
           }
         },
         builder: (context, state) {
