@@ -6,6 +6,7 @@ import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class BlogDataSource {
+
   Future<BlogModel> addBlog(BlogModel blog);
   Future<String> uploadBlogImage({
     required File image,
@@ -39,6 +40,7 @@ class BlogDataSourceImpl implements BlogDataSource {
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blog}) async {
     try {
+     
       await supabaseClient.storage
           .from(SupabaseConstant.blogStorageName)
           .upload(blog.id, image);

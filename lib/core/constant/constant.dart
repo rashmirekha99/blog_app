@@ -6,8 +6,7 @@ class Constant {
     'Sports'
   ];
 
-  static const String notHaveInternetConnectionMsg =
-      'Not have internet Connection';
+  static const String notHaveInternetConnectionMsg = 'Not internet Connection';
 
   static const String userNullMessage = 'User is null';
   static const String blogFormFieldTitle = 'Blog Title';

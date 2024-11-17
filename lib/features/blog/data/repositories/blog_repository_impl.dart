@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/network/internet_connection_checker.dart';
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/core/error/failures.dart';
@@ -31,19 +32,23 @@ class BlogRepositoryImpl implements BlogRepository {
     required List<String> topics,
   }) async {
     try {
-      BlogModel blog = BlogModel(
-          id: const Uuid().v1(),
-          updatedAt: DateTime.now(),
-          posterId: posterId,
-          title: title,
-          content: content,
-          topics: topics,
-          imageUrl: 'image_url');
-      final uploadedImage =
-          await blogDataSource.uploadBlogImage(image: image, blog: blog);
-      blog = blog.copyWith(imageUrl: uploadedImage);
-      final uploadedBlog = await blogDataSource.addBlog(blog);
-      return right(uploadedBlog);
+      if (!await internetConnectionChecker.getInternetConnection()) {
+        return left(Failure(Constant.notHaveInternetConnectionMsg));
+      } else {
+        BlogModel blog = BlogModel(
+            id: const Uuid().v1(),
+            updatedAt: DateTime.now(),
+            posterId: posterId,
+            title: title,
+            content: content,
+            topics: topics,
+            imageUrl: 'image_url');
+        final uploadedImage =
+            await blogDataSource.uploadBlogImage(image: image, blog: blog);
+        blog = blog.copyWith(imageUrl: uploadedImage);
+        final uploadedBlog = await blogDataSource.addBlog(blog);
+        return right(uploadedBlog);
+      }
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
