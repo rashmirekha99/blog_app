@@ -36,7 +36,9 @@ class AuthRespositoryImpl implements AuthRepository {
       }
       final user = await fun();
       return right(user);
-    } on ServerException catch (e) {
+    } 
+    
+    on ServerException catch (e) {
       return left(Failure(e.message));
     }
   }

@@ -21,11 +21,15 @@ class BlogDataSourceImpl implements BlogDataSource {
   @override
   Future<BlogModel> addBlog(BlogModel blog) async {
     try {
-      final blogData =
-          await supabaseClient.from(SupabaseConstant.blogTableName).insert(blog.toJson()).select();
+      final blogData = await supabaseClient
+          .from(SupabaseConstant.blogTableName)
+          .insert(blog.toJson())
+          .select();
       BlogModel res = BlogModel.fromJson(blogData.first);
 
       return res;
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -35,9 +39,15 @@ class BlogDataSourceImpl implements BlogDataSource {
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blog}) async {
     try {
-      await supabaseClient.storage.from(SupabaseConstant.blogStorageName).upload(blog.id, image);
+      await supabaseClient.storage
+          .from(SupabaseConstant.blogStorageName)
+          .upload(blog.id, image);
 
-      return supabaseClient.storage.from(SupabaseConstant.blogStorageName).getPublicUrl(blog.id);
+      return supabaseClient.storage
+          .from(SupabaseConstant.blogStorageName)
+          .getPublicUrl(blog.id);
+    } on StorageException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -45,12 +55,15 @@ class BlogDataSourceImpl implements BlogDataSource {
 
   @override
   Future<List<BlogModel>> getBlogs() async {
-    try {    
-      final blogs = await supabaseClient.from(SupabaseConstant.blogTableName).select();
+    try {
+      final blogs =
+          await supabaseClient.from(SupabaseConstant.blogTableName).select();
       final listedBlogs =
           blogs.map((blog) => BlogModel.fromJson(blog)).toList();
 
       return listedBlogs;
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }

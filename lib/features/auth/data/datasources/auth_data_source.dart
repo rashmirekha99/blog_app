@@ -39,6 +39,8 @@ class AuthDataSourceImp implements AuthDataSource {
         throw ServerException(Constant.userNullMessage);
       }
       return UserModels.fromJson(response.user!.toJson());
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -59,6 +61,8 @@ class AuthDataSourceImp implements AuthDataSource {
         throw ServerException(Constant.userNullMessage);
       }
       return UserModels.fromJson(response.user!.toJson());
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -78,6 +82,8 @@ class AuthDataSourceImp implements AuthDataSource {
         return UserModels.fromJson(user.first);
       }
       return null;
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
