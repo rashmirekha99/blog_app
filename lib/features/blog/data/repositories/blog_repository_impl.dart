@@ -22,7 +22,7 @@ class BlogRepositoryImpl implements BlogRepository {
     required this.blogLocalDataSource,
     required this.internetConnectionChecker,
   });
-
+//add new blog
   @override
   Future<Either<Failure, Blog>> uploadBlog({
     required File image,
@@ -81,7 +81,6 @@ class BlogRepositoryImpl implements BlogRepository {
     required List<String> topics,
     required String imageUrl,
   }) async {
-    print(image.toString());
     try {
       //no internet connection
       if (!await internetConnectionChecker.getInternetConnection()) {
@@ -98,7 +97,7 @@ class BlogRepositoryImpl implements BlogRepository {
             topics: topics,
             imageUrl: imageUrl);
         final uploadedImage =
-            await blogDataSource.uploadBlogImage(image: image, blog: blogData);
+            await blogDataSource.updateBlogImage(image: image, blog: blogData);
         blogData = blogData.copyWith(imageUrl: uploadedImage);
         blogData = blogData.copyWith(updatedAt: DateTime.now());
         final uploadedBlog = await blogDataSource.updateBlog(blogData);

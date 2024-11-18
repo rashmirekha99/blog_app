@@ -11,7 +11,10 @@ abstract interface class BlogDataSource {
   Future<String> uploadBlogImage({
     required File image,
     required BlogModel blog,
-    
+  });
+  Future<String> updateBlogImage({
+    required File image,
+    required BlogModel blog,
   });
   Future<List<BlogModel>> getBlogs();
 }
@@ -19,7 +22,7 @@ abstract interface class BlogDataSource {
 class BlogDataSourceImpl implements BlogDataSource {
   final SupabaseClient supabaseClient;
   BlogDataSourceImpl(this.supabaseClient);
-
+//add new blog - to table
   @override
   Future<BlogModel> addBlog(BlogModel blog) async {
     try {
@@ -37,22 +40,33 @@ class BlogDataSourceImpl implements BlogDataSource {
     }
   }
 
+//upload image to storage
   @override
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blog}) async {
-    try {
-      await supabaseClient.storage
-          .from(SupabaseConstant.blogStorageName)
-          .upload(blog.id, image);
+    return _uploadImage(
+        image: image,
+        blog: blog,
+        inserFunc: () async {
+          await supabaseClient.storage
+              .from(SupabaseConstant.blogStorageName)
+              .upload(blog.id, image);
+        });
+  }
 
-      return supabaseClient.storage
-          .from(SupabaseConstant.blogStorageName)
-          .getPublicUrl(blog.id);
-    } on StorageException catch (e) {
-      throw ServerException(e.message);
-    } catch (e) {
-      throw ServerException(e.toString());
-    }
+//update image in storage
+  @override
+  Future<String> updateBlogImage(
+      {required File image, required BlogModel blog}) async {
+    return _uploadImage(
+        image: image,
+        blog: blog,
+        inserFunc: () async {
+       await supabaseClient.storage
+              .from(SupabaseConstant.blogStorageName)
+              .update(blog.id, image);
+         
+        });
   }
 
   @override
@@ -81,6 +95,24 @@ class BlogDataSourceImpl implements BlogDataSource {
           .select();
       return BlogModel.fromJson(updatedBlog.first);
     } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  //upload blog
+  Future<String> _uploadImage(
+      {required File image,
+      required BlogModel blog,
+      required Function inserFunc}) async {
+    try {
+      await inserFunc();
+
+      return supabaseClient.storage
+          .from(SupabaseConstant.blogStorageName)
+          .getPublicUrl(blog.id);
+    } on StorageException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
