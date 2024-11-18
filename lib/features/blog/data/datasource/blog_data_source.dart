@@ -44,13 +44,16 @@ class BlogDataSourceImpl implements BlogDataSource {
   @override
   Future<String> uploadBlogImage(
       {required File image, required BlogModel blog}) async {
+    final uniqueId = '${blog.id}${DateTime.now().millisecondsSinceEpoch}';
+
     return _uploadImage(
+        uniqueId: uniqueId,
         image: image,
         blog: blog,
         inserFunc: () async {
           await supabaseClient.storage
               .from(SupabaseConstant.blogStorageName)
-              .upload(blog.id, image);
+              .upload(uniqueId, image);
         });
   }
 
@@ -58,14 +61,15 @@ class BlogDataSourceImpl implements BlogDataSource {
   @override
   Future<String> updateBlogImage(
       {required File image, required BlogModel blog}) async {
+    final uniqueId = '${blog.id}${DateTime.now().millisecondsSinceEpoch}';
     return _uploadImage(
+        uniqueId: uniqueId,
         image: image,
         blog: blog,
         inserFunc: () async {
-          final res = await supabaseClient.storage
+          await supabaseClient.storage
               .from(SupabaseConstant.blogStorageName)
               .update(blog.id, image);
-          print('inserFunc' + res);
         });
   }
 
@@ -105,14 +109,15 @@ class BlogDataSourceImpl implements BlogDataSource {
   Future<String> _uploadImage(
       {required File image,
       required BlogModel blog,
+      required String uniqueId,
       required Function inserFunc}) async {
     try {
       await inserFunc();
 
       final url = supabaseClient.storage
           .from(SupabaseConstant.blogStorageName)
-          .getPublicUrl(blog.id);
-      print('url' + url);
+          .getPublicUrl(uniqueId);
+
       return url;
     } on StorageException catch (e) {
       throw ServerException(e.message);

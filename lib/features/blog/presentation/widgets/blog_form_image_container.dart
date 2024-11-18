@@ -4,6 +4,7 @@ import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -56,16 +57,14 @@ class _BlogFormImageContainerState extends State<BlogFormImageContainer> {
                         Text(Constant.blogFormAddImage)
                       ],
                     )
-                  : Image.network(
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return const Loader();
-                        }
-                      },
-                      widget.blog!.imageUrl,
-                      fit: BoxFit.cover,
+                  : CachedNetworkImage(
+                      useOldImageOnUrlChange: true,
+                      cacheKey: widget.blog?.imageUrl,
+                      fit: BoxFit.fitWidth,
+                      imageUrl: widget.blog!.imageUrl,
+                      placeholder: (context, url) => const Loader(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
         ),
       ),

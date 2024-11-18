@@ -5,14 +5,11 @@ import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/network/internet_connection_checker.dart';
 import 'package:blog_app/core/utils/clear_cache.dart';
-import 'package:blog_app/core/utils/delay.dart';
 import 'package:blog_app/features/blog/data/datasource/blog_data_source.dart';
 import 'package:blog_app/features/blog/data/datasource/blog_local_data_source.dart';
 import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:blog_app/features/blog/domain/repositories/blog_repository.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
 
@@ -101,12 +98,11 @@ class BlogRepositoryImpl implements BlogRepository {
             topics: topics,
             imageUrl: imageUrl);
         final uploadedImage =
-            await blogDataSource.updateBlogImage(image: image, blog: blogData);
+            await blogDataSource.uploadBlogImage(image: image, blog: blogData);  
         blogData = blogData.copyWith(imageUrl: uploadedImage);
         blogData = blogData.copyWith(updatedAt: DateTime.now());
         clearCache(imageUrl);
         final uploadedBlog = await blogDataSource.updateBlog(blogData);
-        await delay(6);
         return right(uploadedBlog);
       }
       //update content without image

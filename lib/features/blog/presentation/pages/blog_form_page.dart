@@ -11,7 +11,6 @@ import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_field.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_form_image_container.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_topic_row.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -81,8 +80,6 @@ class _AddNewBlogState extends State<AddNewBlog> {
   void updateBlog(BuildContext context)async {
     if (formKey.currentState!.validate() && selectedTopics.isNotEmpty) {
       Blog blogData = widget.blog as Blog;
-      
-
       context.read<BlogBloc>().add(BlogUpdateEvent(
           image: image,
           id: blogData.id,

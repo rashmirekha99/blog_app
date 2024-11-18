@@ -5,7 +5,6 @@ import 'package:blog_app/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class BlogCard extends StatelessWidget {
   const BlogCard({super.key, required this.blog});
