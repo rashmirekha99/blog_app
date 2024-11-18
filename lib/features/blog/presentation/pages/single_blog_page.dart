@@ -2,6 +2,7 @@ import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/utils/calculate_reading_time.dart';
+import 'package:blog_app/core/utils/show_dialog_box.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
@@ -104,9 +105,10 @@ class SingleBlog extends StatelessWidget {
                                       backgroundColor: Colors.red,
                                       shape: const RoundedRectangleBorder()),
                                   onPressed: () {
-                                    context
-                                        .read<BlogBloc>()
-                                        .add(BlogDeleteEvent(blogId: blog.id));
+                                    showDialogBox(
+                                        context,
+                                        () => context.read<BlogBloc>().add(
+                                            BlogDeleteEvent(blogId: blog.id)));
                                   },
                                   child: const Text(
                                     'Delete',
@@ -121,7 +123,7 @@ class SingleBlog extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: 200,
                     width: double.infinity,
                     child: CachedNetworkImage(
