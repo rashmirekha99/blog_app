@@ -8,8 +8,11 @@ class BlogField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: Theme.of(context).textTheme.titleSmall,
       controller: controller,
-      decoration: InputDecoration(hintText: hinText),
+      decoration: InputDecoration(
+          labelStyle: Theme.of(context).textTheme.titleSmall,
+          hintText: hinText),
       maxLines: null,
       validator: (value) {
         if (value!.isEmpty) {

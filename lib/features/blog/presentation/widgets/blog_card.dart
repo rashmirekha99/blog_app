@@ -79,6 +79,7 @@ class BlogCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
+                          style: Theme.of(context).textTheme.headlineSmall,
                           '${calculateReadingTime(blog.content)} ${Constant.minutesText}'),
                     ),
                   ],
@@ -90,6 +91,7 @@ class BlogCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
+                style: Theme.of(context).textTheme.bodyMedium,
                 blog.content,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

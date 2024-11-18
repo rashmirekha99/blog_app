@@ -59,7 +59,7 @@ class SingleBlog extends StatelessWidget {
                       children: [
                         Text(
                           blog.title,
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -79,7 +79,7 @@ class SingleBlog extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(blog.posterName ?? ''),
+                                Text('By ${blog.posterName ?? ''}'),
                                 Row(
                                   children: [
                                     Text(

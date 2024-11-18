@@ -5,6 +5,7 @@ final serviceLocator = GetIt.asNewInstance();
 Future<void> initDependencies() async {
   _initAuth();
   _initBlog();
+  _themeInit();
   final supabase = await Supabase.initialize(
     url: SupabaseSecrets.supabaseURL,
     anonKey: SupabaseSecrets.supabaseAnonKey,
@@ -70,4 +71,9 @@ void _initBlog() {
       deleteBlog: serviceLocator(),
     ),
   );
+}
+
+void _themeInit() {
+  //Bloc
+  serviceLocator.registerLazySingleton(() => ThemeBloc());
 }

@@ -9,7 +9,7 @@ class SettingCardItem extends StatelessWidget {
     required this.onPress,
   });
   final String name;
-  final dynamic icon;
+  final Widget icon;
   final VoidCallback onPress;
 
   @override
@@ -27,7 +27,7 @@ class SettingCardItem extends StatelessWidget {
             spacing: 20.0,
             children: [
               Text(name),
-              Icon(icon),
+              icon,
             ],
           ),
         ),

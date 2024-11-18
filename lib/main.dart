@@ -2,7 +2,9 @@ import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
 import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/pages/not_found_page.dart';
-import 'package:blog_app/core/theme/theme.dart';
+import 'package:blog_app/core/theme/bloc/theme_bloc.dart';
+import 'package:blog_app/core/theme/dark_theme.dart';
+import 'package:blog_app/core/theme/light_theme.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/signin_page.dart';
 import 'package:blog_app/features/auth/presentation/pages/signup_page.dart';
@@ -26,6 +28,9 @@ void main() async {
     BlocProvider(
       create: (_) => serviceLocator<BlogBloc>(),
     ),
+    BlocProvider(
+      create: (_) => serviceLocator<ThemeBloc>(),
+    ),
   ], child: const MyApp()));
 }
 
@@ -45,34 +50,43 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: Constant.appName,
-      theme: AppTheme.darkThemeMode,
-      home: BlocSelector<UserCubitCubit, UserCubitState, bool>(
-        selector: (state) {
-          return state is AppUserState;
-        },
-        //if true run this builder
-        builder: (context, state) {
-          if (state) {
-            return const HomePage();
-          }
-          return const SignInPage();
-        },
-      ),
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case RouteNames.initialRouteName:
-            return MaterialPageRoute(builder: (context) => const HomePage());
-          case RouteNames.signUpRouteName:
-            return MaterialPageRoute(builder: (context) => const SignUpPage());
-          case RouteNames.signInRouteName:
-            return MaterialPageRoute(builder: (context) => const SignInPage());
-          default:
-            return MaterialPageRoute(
-                builder: (context) => const NotFoundPage());
-        }
+    return BlocBuilder<ThemeBloc, ThemeMode>(
+      builder: (context, state) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: Constant.appName,
+          themeMode: state,
+          darkTheme: DarkThemeData.darkThemeMode,
+          theme: LightThemeData.lightThemeMode,
+          home: BlocSelector<UserCubitCubit, UserCubitState, bool>(
+            selector: (state) {
+              return state is AppUserState;
+            },
+            //if true run this builder
+            builder: (context, state) {
+              if (state) {
+                return const HomePage();
+              }
+              return const SignInPage();
+            },
+          ),
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case RouteNames.initialRouteName:
+                return MaterialPageRoute(
+                    builder: (context) => const HomePage());
+              case RouteNames.signUpRouteName:
+                return MaterialPageRoute(
+                    builder: (context) => const SignUpPage());
+              case RouteNames.signInRouteName:
+                return MaterialPageRoute(
+                    builder: (context) => const SignInPage());
+              default:
+                return MaterialPageRoute(
+                    builder: (context) => const NotFoundPage());
+            }
+          },
+        );
       },
     );
   }
