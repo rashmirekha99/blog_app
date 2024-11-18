@@ -62,10 +62,10 @@ class BlogDataSourceImpl implements BlogDataSource {
         image: image,
         blog: blog,
         inserFunc: () async {
-       await supabaseClient.storage
+          final res = await supabaseClient.storage
               .from(SupabaseConstant.blogStorageName)
               .update(blog.id, image);
-         
+          print('inserFunc' + res);
         });
   }
 
@@ -109,9 +109,11 @@ class BlogDataSourceImpl implements BlogDataSource {
     try {
       await inserFunc();
 
-      return supabaseClient.storage
+      final url = supabaseClient.storage
           .from(SupabaseConstant.blogStorageName)
           .getPublicUrl(blog.id);
+      print('url' + url);
+      return url;
     } on StorageException catch (e) {
       throw ServerException(e.message);
     } catch (e) {

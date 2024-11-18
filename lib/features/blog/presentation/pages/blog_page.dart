@@ -1,5 +1,6 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_card.dart';
@@ -16,8 +17,6 @@ class BlogPage extends StatefulWidget {
 class _BlogPageState extends State<BlogPage> {
   @override
   void initState() {
-    // final userId =
-    //     (context.read<UserCubitCubit>().state as AppUserState).user.id;
     context.read<BlogBloc>().add(BlogReadEvent());
     super.initState();
   }
@@ -30,7 +29,7 @@ class _BlogPageState extends State<BlogPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/add_new_blog');
+                  Navigator.pushNamed(context, RouteNames.addNewBlogRouteName);
                 },
                 icon: const Icon(Icons.add_circle))
           ],
@@ -57,7 +56,7 @@ class _BlogPageState extends State<BlogPage> {
                         onTap: () {
                           Navigator.pushNamed(
                             context,
-                            '/single_blog_page',
+                            RouteNames.singleBlogRouteName,
                             arguments: blog,
                           );
                         },

@@ -1,6 +1,7 @@
 import 'package:blog_app/core/common/cubits/user_cubit/user_cubit_cubit.dart';
 import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/constant/constant.dart';
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_card.dart';
@@ -30,7 +31,7 @@ class _MyBlogPageState extends State<MyBlogPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/add_new_blog');
+                  Navigator.pushNamed(context, RouteNames.addNewBlogRouteName);
                 },
                 icon: const Icon(Icons.add_circle))
           ],
@@ -60,7 +61,7 @@ class _MyBlogPageState extends State<MyBlogPage> {
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
-                                '/single_blog_page',
+                                RouteNames.singleBlogRouteName,
                                 arguments: blog,
                               );
                             },
