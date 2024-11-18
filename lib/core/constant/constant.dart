@@ -3,7 +3,12 @@ class Constant {
     'Technology',
     'Entertainment',
     'Nature',
-    'Sports'
+    'Sports',
+    'Health',
+    'Travel',
+    'Food',
+    'Education',
+    'Business'
   ];
   //network
   static const String notHaveInternetConnectionMsg = 'Not internet Connection';
@@ -11,7 +16,7 @@ class Constant {
   static const String blogFormFieldTitle = 'Blog Title';
   static const String blogFormFieldContent = 'Blog Content';
   static const String blogFormAddImage = 'Add Image';
-  static const String appName = 'Blog App';
+  static const String appName = 'Explore';
   static const String minutesText = 'min';
   static const String updateSucesMessage = 'Sucessfully Updated';
   static const String deleteSucesMessage = 'Sucessfully Deleted';
