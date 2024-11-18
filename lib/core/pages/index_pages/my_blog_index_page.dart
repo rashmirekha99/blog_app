@@ -26,7 +26,7 @@ class _MyBlogIndexPageState extends State<MyBlogIndexPage> {
             return MaterialPageRoute(
               builder: (context) => SingleBlog(
                 blog: settings.arguments as Blog,
-                isEditIconRequired: true,
+                isMyBlog: true,
               ),
             );
           case RouteNames.addNewBlogRouteName:

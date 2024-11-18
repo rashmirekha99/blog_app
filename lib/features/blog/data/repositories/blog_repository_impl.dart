@@ -98,7 +98,7 @@ class BlogRepositoryImpl implements BlogRepository {
             topics: topics,
             imageUrl: imageUrl);
         final uploadedImage =
-            await blogDataSource.uploadBlogImage(image: image, blog: blogData);  
+            await blogDataSource.uploadBlogImage(image: image, blog: blogData);
         blogData = blogData.copyWith(imageUrl: uploadedImage);
         blogData = blogData.copyWith(updatedAt: DateTime.now());
         clearCache(imageUrl);
@@ -119,6 +119,15 @@ class BlogRepositoryImpl implements BlogRepository {
         final uploadedBlog = await blogDataSource.updateBlog(blogData);
         return right(uploadedBlog);
       }
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteBlog(String blogId) async {
+    try {
+      return right(await blogDataSource.deleteBlog(blogId));
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }

@@ -19,6 +19,13 @@ class BlogAddEvent extends BlogEvent {
 
 class BlogReadEvent extends BlogEvent {}
 
+class BlogDeleteEvent extends BlogEvent {
+  final String blogId;
+
+  BlogDeleteEvent({required this.blogId});
+
+}
+
 class BlogUpdateEvent extends BlogEvent {
   File? image;
   final String id;

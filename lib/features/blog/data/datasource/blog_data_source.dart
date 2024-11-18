@@ -17,6 +17,7 @@ abstract interface class BlogDataSource {
     required BlogModel blog,
   });
   Future<List<BlogModel>> getBlogs();
+  Future<void> deleteBlog(String blogId);
 }
 
 class BlogDataSourceImpl implements BlogDataSource {
@@ -121,6 +122,18 @@ class BlogDataSourceImpl implements BlogDataSource {
       return url;
     } on StorageException catch (e) {
       throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  //delete blog
+  @override
+  Future<void> deleteBlog(String blogId) async {
+    try {
+      final res = await supabaseClient.from('blogs').delete().eq('id', blogId);
+      print(res);
+      
     } catch (e) {
       throw ServerException(e.toString());
     }

@@ -60,9 +60,14 @@ void _initBlog() {
   serviceLocator.registerFactory(() => AddBlog(serviceLocator()));
   serviceLocator.registerFactory(() => GetBlog(serviceLocator()));
   serviceLocator.registerFactory(() => UpdateBlog(serviceLocator()));
+  serviceLocator.registerFactory(() => DeleteBlog(serviceLocator()));
   //Bloc
-  serviceLocator.registerLazySingleton(() => BlogBloc(
+  serviceLocator.registerLazySingleton(
+    () => BlogBloc(
       addBlog: serviceLocator(),
       getBlog: serviceLocator(),
-      updateBlog: serviceLocator()));
+      updateBlog: serviceLocator(),
+      deleteBlog: serviceLocator(),
+    ),
+  );
 }

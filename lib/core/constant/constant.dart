@@ -14,6 +14,7 @@ class Constant {
   static const String appName = 'Blog App';
   static const String minutesText = 'min';
   static const String updateSucesMessage = 'Sucessfully Updated';
+  static const String deleteSucesMessage = 'Sucessfully Deleted';
   //bottom bar
   static const String navBarHomeText = 'Home';
   static const String navBarMyBlogText = 'My Blogs';
