@@ -1,15 +1,15 @@
 import 'package:blog_app/features/blog/domain/enities/blog.dart';
 
 class BlogModel extends Blog {
-  BlogModel({
-    required super.id,
-    required super.updatedAt,
-    required super.posterId,
-    required super.title,
-    required super.content,
-    required super.topics,
-    required super.imageUrl,
-  });
+  BlogModel(
+      {required super.id,
+      required super.updatedAt,
+      required super.posterId,
+      required super.title,
+      required super.content,
+      required super.topics,
+      required super.imageUrl,
+      super.posterName});
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -26,16 +26,18 @@ class BlogModel extends Blog {
   factory BlogModel.fromJson(Map<String, dynamic> map) {
     return BlogModel(
       id: map['id'] as String,
-      updatedAt:map['updated_at']==null?DateTime.now(): DateTime.parse(map['updated_at']),
+      updatedAt: map['updated_at'] == null
+          ? DateTime.now()
+          : DateTime.parse(map['updated_at']),
       posterId: map['poster_id'] as String,
       title: map['title'] as String,
       content: map['content'] as String,
-      topics: List<String>.from(map['topics'] ??[]),
+      topics: List<String>.from(map['topics'] ?? []),
       imageUrl: map['image_url'] as String,
     );
   }
   //can update values through this
-BlogModel copyWith({
+  BlogModel copyWith({
     String? id,
     DateTime? updatedAt,
     String? posterId,
@@ -43,6 +45,7 @@ BlogModel copyWith({
     String? content,
     List<String>? topics,
     String? imageUrl,
+    String? posterName,
   }) {
     return BlogModel(
       id: id ?? this.id,
@@ -52,6 +55,7 @@ BlogModel copyWith({
       content: content ?? this.content,
       topics: topics ?? this.topics,
       imageUrl: imageUrl ?? this.imageUrl,
+      posterName: posterName ?? this.posterName,
     );
   }
-  }
+}

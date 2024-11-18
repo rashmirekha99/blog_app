@@ -79,7 +79,7 @@ class SingleBlog extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text('By Rashmi Rekha'),
+                                Text(blog.posterName ?? ''),
                                 Row(
                                   children: [
                                     Text(

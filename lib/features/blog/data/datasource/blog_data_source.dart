@@ -77,10 +77,14 @@ class BlogDataSourceImpl implements BlogDataSource {
   @override
   Future<List<BlogModel>> getBlogs() async {
     try {
-      final blogs =
-          await supabaseClient.from(SupabaseConstant.blogTableName).select();
-      final listedBlogs =
-          blogs.map((blog) => BlogModel.fromJson(blog)).toList();
+      //join (blog + profile (name))
+      final blogs = await supabaseClient
+          .from(SupabaseConstant.blogTableName)
+          .select('*,profiles(*)');
+      final listedBlogs = blogs
+          .map((blog) => BlogModel.fromJson(blog).copyWith(
+              posterName: blog[SupabaseConstant.userTableName]['name']))
+          .toList();
 
       return listedBlogs;
     } on PostgrestException catch (e) {
@@ -133,7 +137,6 @@ class BlogDataSourceImpl implements BlogDataSource {
     try {
       final res = await supabaseClient.from('blogs').delete().eq('id', blogId);
       print(res);
-      
     } catch (e) {
       throw ServerException(e.toString());
     }
