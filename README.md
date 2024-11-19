@@ -10,8 +10,6 @@ A mobile application built with **Flutter**, designed to practice **Clean Archit
 <img src="assets/app_screenshots/single_blog.png" alt="Single Blog" width="300" />
 
 </div>
-
-
 ---
 
 ## Features 🚀
@@ -35,7 +33,6 @@ A mobile application built with **Flutter**, designed to practice **Clean Archit
 
 ---
 
-
 ## Installation & Setup ⚙️
 
 Follow these steps to get the app running on your local machine:
@@ -46,3 +43,25 @@ Follow these steps to get the app running on your local machine:
    cd blog_app
    flutter pub get
    flutter run
+---
+## Contributing 🤝
+
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+1. **Fork** the repository.
+2. **Create a new branch**:
+   ```bash
+   git checkout -b feature-name
+   git commit -m "Add some feature"
+   git push origin feature-name
+---
+## Feedback 💬
+
+We’d love to hear your thoughts! If you have any feedback or suggestions, feel free to:
+
+- Open an issue on the repository.
+- Share your ideas or improvements via email.
+
+Your input is invaluable in making this project better. Thank you for your support! 🙌
+
+
