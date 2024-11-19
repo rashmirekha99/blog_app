@@ -10,7 +10,7 @@ A mobile application built with **Flutter**, designed to practice **Clean Archit
 <img src="assets/app_screenshots/single_blog.png" alt="Single Blog" width="300" />
 
 </div>
----
+
 
 ## Features 🚀
 
