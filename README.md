@@ -27,10 +27,14 @@ A mobile application built with **Flutter**, designed to practice **Clean Archit
 
 ## Screenshots 📸
 
-| Blog Home Page                | Single Blog Page                 |
-|----------------------------------|------------------------------------|
-| ![Blog Listing](assets/app_screenshots/all_blogs.png) | ![Add/Edit Blog](assets/app_screenshots/single_blogs.png) |
+<div style="display: flex; justify-content: space-around;">
 
+<img src="assets/app_screenshots/all_blogs.png" alt="Blog Listing" width="300" />
+<img src="assets/app_screenshots/single_blogs.png" alt="Single Blog" width="300" />
+
+</div>
+
+---
 ---
 
 ## Installation & Setup ⚙️
