@@ -2,6 +2,16 @@
 
 A mobile application built with **Flutter**, designed to practice **Clean Architecture** and implement **SOLID principles**. This app provides a feature-rich blogging experience with support for both online and offline modes.
 
+## Screenshots 📸
+
+<div style="display: flex; justify-content: space-around;">
+
+<img src="assets/app_screenshots/all_blogs.png" alt="Blog Listing" width="300" />
+<img src="assets/app_screenshots/single_blog.png" alt="Single Blog" width="300" />
+
+</div>
+
+
 ---
 
 ## Features 🚀
@@ -25,17 +35,6 @@ A mobile application built with **Flutter**, designed to practice **Clean Archit
 
 ---
 
-## Screenshots 📸
-
-<div style="display: flex; justify-content: space-around;">
-
-<img src="assets/app_screenshots/all_blogs.png" alt="Blog Listing" width="300" />
-<img src="assets/app_screenshots/single_blogs.png" alt="Single Blog" width="300" />
-
-</div>
-
----
----
 
 ## Installation & Setup ⚙️
 
