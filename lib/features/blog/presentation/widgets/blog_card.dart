@@ -36,14 +36,17 @@ class BlogCard extends StatelessWidget {
                     ),
                     height: 200,
                     width: double.infinity,
-                    child: CachedNetworkImage(
-                      useOldImageOnUrlChange: true,
-                      cacheKey: blog.imageUrl,
-                      fit: BoxFit.fitWidth,
-                      imageUrl: blog.imageUrl,
-                      placeholder: (context, url) => const Loader(),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                    child: Hero(
+                      tag: blog.id,
+                      child: CachedNetworkImage(
+                        useOldImageOnUrlChange: true,
+                        cacheKey: blog.imageUrl,
+                        fit: BoxFit.fitWidth,
+                        imageUrl: blog.imageUrl,
+                        placeholder: (context, url) => const Loader(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
                     ),
                   ),
                 ),

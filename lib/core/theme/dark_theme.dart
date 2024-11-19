@@ -36,10 +36,14 @@ class DarkThemeData {
           fontWeight: FontWeight.bold,
           color: AppPalette.textGreyColor,
         ),
+        // bodyLarge: TextStyle(
+        //   fontSize: 24,
+        //   fontWeight: FontWeight.bold,
+        //   color: AppPalette.white,
+        // ),
         headlineSmall: TextStyle(color: AppPalette.white, fontSize: 14),
       ),
       //navbar
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: AppPalette.gradient1));
-
 }

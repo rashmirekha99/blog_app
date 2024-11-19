@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/widgets/loader.dart';
+import 'package:blog_app/core/constant/routes.dart';
 import 'package:blog_app/core/theme/app_palette.dart';
 import 'package:blog_app/core/utils/show_snack_bar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
@@ -40,8 +41,8 @@ class _SignUpPageState extends State<SignUpPage> {
             showSnackBar(context, state.messsage);
           }
           if (state is AuthSucess) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/blog_page', (Route<dynamic> route) => false);
+            Navigator.pushNamedAndRemoveUntil(context,
+                RouteNames.signInRouteName, (Route<dynamic> route) => false);
           }
         },
         builder: (context, state) {

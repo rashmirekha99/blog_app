@@ -59,7 +59,11 @@ class SingleBlog extends StatelessWidget {
                       children: [
                         Text(
                           blog.title,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -126,12 +130,15 @@ class SingleBlog extends StatelessWidget {
                   SizedBox(
                     height: 200,
                     width: double.infinity,
-                    child: CachedNetworkImage(
-                      fit: BoxFit.fitWidth,
-                      imageUrl: blog.imageUrl,
-                      placeholder: (context, url) => const Loader(),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                    child: Hero(
+                      tag: blog.id,
+                      child: CachedNetworkImage(
+                        fit: BoxFit.fitWidth,
+                        imageUrl: blog.imageUrl,
+                        placeholder: (context, url) => const Loader(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
                     ),
                   ),
                   const SizedBox(

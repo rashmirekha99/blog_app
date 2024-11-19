@@ -52,6 +52,9 @@ class _MyBlogPageState extends State<MyBlogPage> {
                   shrinkWrap: true,
                   itemCount: state.blogs.length,
                   itemBuilder: (context, index) {
+                    if (state.blogs.isEmpty) {
+                      return const Center(child: Text('No Blogs'));
+                    }
                     final blog = state.blogs[index];
 
                     if (blog.posterId == userId) {
