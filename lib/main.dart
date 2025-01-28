@@ -13,9 +13,11 @@ import 'package:blog_app/home_page.dart';
 import 'package:blog_app/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  OneSignal.initialize('b1ebfbc5-178d-4697-9692-9c0acd22d82f');
   await initDependencies();
 
   runApp(MultiBlocProvider(providers: [

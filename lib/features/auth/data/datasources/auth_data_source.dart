@@ -22,9 +22,6 @@ abstract interface class AuthDataSource {
 }
 
 class AuthDataSourceImp implements AuthDataSource {
-  //why not create supabase client  here
-  //if do this class depend on supabase
-  //this way is easy to test
   final SupabaseClient supabaseClient;
   AuthDataSourceImp(this.supabaseClient);
   @override

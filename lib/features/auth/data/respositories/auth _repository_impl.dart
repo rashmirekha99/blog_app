@@ -1,4 +1,3 @@
-
 import 'package:blog_app/core/constant/constant.dart';
 import 'package:blog_app/core/error/exception.dart';
 import 'package:blog_app/core/error/failures.dart';
@@ -18,6 +17,7 @@ class AuthRespositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     return _getUser(() async => await authDataSource.signInWithEmailPassword(
         email: email, password: password));
+    
   }
 
   @override
